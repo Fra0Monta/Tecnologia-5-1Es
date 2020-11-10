@@ -1,22 +1,28 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http'; //HTTP CLIENT
+import { Observable } from 'rxjs/internal/Observable';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  results: string[];
-  private BASE_URL:string = '/api';
+export class AppComponent {
+ title = 'client';
+    results: string[];
+    obs:Observable<object>;
     // Inject HttpClient into your component or service.
     constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
       // Make the HTTP request:
-      this.http.get('https://3000-bf91ae2f-f87b-4702-bc3c-41e26f8070b9.ws-eu01.gitpod.io/api').subscribe(data => {
-        // Read the result field from the JSON response.
-        this.results = data['results'];
-      });
     }
+
+    event():void{
+      this.obs = this.http.get('https://3000-c2da1564-900e-49c8-8f69-67064ebc7509.ws-eu01.gitpod.io/api/products');
+      this.obs.subscribe(this.getData);
+    }
+    getData = data => {
+        this.results = data['products'];
+      }
 }

@@ -1,14 +1,21 @@
-var express = require('express');
-var app = express(); 
+const express = require('express');
 const path = require('path');
+const http = require('http');
+const app= express();
+var cors = require('cors');
+app.use(cors());
+app.use(express.static(path.join(__dirname, 'dist')));
 app.get('/',function(req,res){
- res.sendFile(path.join(__dirname, 'index.html')); //__dirname : Ritorna la cartella del progetto
+ res.sendFile(path.join(__dirname, 'index.html')); 
 });
 app.get('/about',function(req,res){
- res.sendFile(path.join(__dirname, 'about.html')); //__dirname : Ritorna la cartella del progetto
+ res.sendFile(path.join(__dirname, 'about.html')); 
 });
 app.get('/sitemap',function(req,res){
- res.sendFile(path.join(__dirname, 'sitemap.html')); //__dirname : Ritorna la cartella del progetto
+ res.sendFile(path.join(__dirname, 'sitemap.html')); 
+});
+app.get('/api/products',function(req,res){
+ res.sendFile(path.join(__dirname, 'products.json')); 
 });
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
